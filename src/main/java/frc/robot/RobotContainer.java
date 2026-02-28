@@ -24,9 +24,17 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.turetShoot;
+
 import java.io.File;
 import swervelib.SwerveInputStream;
 
+import frc.robot.subsystems.swervedrive.turetShoot;//12 13
+import frc.robot.subsystems.swervedrive.turetTurn;//14
+//10 griper up/down
+//9 gripper grab
+//15 ascending
+//11 model T
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
@@ -34,7 +42,8 @@ import swervelib.SwerveInputStream;
  */
 public class RobotContainer
 {
-
+  private turetShoot turetShoot = new turetShoot(12,13);
+  private turetTurn turetTurn = new turetTurn(11);
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandPS4Controller driverPS4 = new CommandPS4Controller(0);
   // The robot's subsystems and commands are defined here...
@@ -174,7 +183,7 @@ public class RobotContainer
 //          drivebase.driveToPose(
 //              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
 //                              );
-
+/*
     }
     if (DriverStation.isTest())
     {
@@ -192,11 +201,16 @@ public class RobotContainer
       driverPS4.share().whileTrue(Commands.none());
       driverPS4.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       driverPS4.R1().onTrue(Commands.none());
-    }
+    */}
 
   }
 
-  /**
+  public void PS4buttons()
+  {
+    turetShoot.turetShoot(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean());
+    turetTurn.TuretTurn(driverPS4.L1().getAsBoolean(), driverPS4.R1().getAsBoolean());
+  }  
+   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
    * @return the command to run in autonomous
