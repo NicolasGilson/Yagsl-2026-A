@@ -7,8 +7,8 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class turetTurn extends SubsystemBase
 {
-    public final double LEFT_LIMIT = 8.0002;//-10
-    public final double RIGHT_LIMIT = -8.0002;//7.0
+    public final double LEFT_LIMIT = -10;//-10
+    public final double RIGHT_LIMIT = 7.0002;//7.0
 
     //-1.1666666
     private static SparkMax MotorA= new SparkMax(14,MotorType.kBrushless);;
@@ -30,7 +30,7 @@ public class turetTurn extends SubsystemBase
         }
         else if(t)
         {
-            setAngle(0.09,5,0.005);
+            setAngle(0.1,5,0.005);
         }
 
         else 
