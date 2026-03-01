@@ -43,7 +43,7 @@ import frc.robot.subsystems.swervedrive.turetTurn;//14
 public class RobotContainer
 {
   private turetShoot turetShoot = new turetShoot(12,13);
-  private turetTurn turetTurn = new turetTurn(11);
+  public static turetTurn turetTurner = new turetTurn();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandPS4Controller driverPS4 = new CommandPS4Controller(0);
   // The robot's subsystems and commands are defined here...
@@ -207,9 +207,15 @@ public class RobotContainer
 
   public void PS4buttons()
   {
+
     turetShoot.turetShoot(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean());
-    turetTurn.TuretTurn(driverPS4.L1().getAsBoolean(), driverPS4.R1().getAsBoolean());
+    turetTurner.TuretTurn(driverPS4.L1().getAsBoolean(), driverPS4.R1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
+    //driverPS4
   }  
+  public String angle()
+  {
+    return ""+turetTurner.getAngle();
+  }
    /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
    *
@@ -220,6 +226,8 @@ public class RobotContainer
     // Pass in the selected auto from the SmartDashboard as our desired autnomous commmand 
     return autoChooser.getSelected();
   }
+
+
 
   public void setMotorBrake(boolean brake)
   {
