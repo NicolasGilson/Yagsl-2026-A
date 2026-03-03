@@ -24,17 +24,18 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.turetShoot;
+import frc.robot.subsystems.swervedrive.cmdTurretTurn;
+import frc.robot.subsystems.swervedrive.general;
 
 import java.io.File;
 import swervelib.SwerveInputStream;
 
-import frc.robot.subsystems.swervedrive.turetShoot;//12 13
+import frc.robot.subsystems.swervedrive.turetShoot;
 import frc.robot.subsystems.swervedrive.turetTurn;//14
 //10 griper up/down
 //9 gripper grab
 //15 ascending
-//11 model T
+//11 modelT
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a "declarative" paradigm, very
  * little robot logic should actually be handled in the {@link Robot} periodic methods (other than the scheduler calls).
@@ -43,6 +44,10 @@ import frc.robot.subsystems.swervedrive.turetTurn;//14
 public class RobotContainer
 {
   private turetShoot turetShoot = new turetShoot(12,13);
+  private general gripperRotate = new general(10);
+  private general grippy = new general(9);
+  private general ascending = new general(15);
+  private general modelT = new general(11);
   public static turetTurn turetTurner = new turetTurn();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandPS4Controller driverPS4 = new CommandPS4Controller(0);
@@ -140,15 +145,13 @@ public class RobotContainer
    */
   private void configureBindings()
   {
-    Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
+    //Command driveFieldOrientedDirectAngle      = drivebase.driveFieldOriented(driveDirectAngle);
     Command driveFieldOrientedAnglularVelocity = drivebase.driveFieldOriented(driveAngularVelocity);
-    Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
-    Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngle);
+    //Command driveRobotOrientedAngularVelocity  = drivebase.driveFieldOriented(driveRobotOriented);
+   // Command driveSetpointGen = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngle);
     Command driveFieldOrientedDirectAngleKeyboard      = drivebase.driveFieldOriented(driveDirectAngleKeyboard);
-    Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
-    Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(
-        driveDirectAngleKeyboard);
+    //Command driveFieldOrientedAnglularVelocityKeyboard = drivebase.driveFieldOriented(driveAngularVelocityKeyboard);
+    //Command driveSetpointGenKeyboard = drivebase.driveWithSetpointGeneratorFieldRelative(driveDirectAngleKeyboard);
 
     if (RobotBase.isSimulation())
     {
@@ -208,13 +211,18 @@ public class RobotContainer
   public void PS4buttons()
   {
 
-    turetShoot.turetShoot(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean());
-    turetTurner.TuretTurn(driverPS4.L1().getAsBoolean(), driverPS4.R1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
-    //driverPS4
+    turetShoot.turetShooty(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean(),0.5);
+    turetTurner.TuretTurner(driverPS4.L1().getAsBoolean(), driverPS4.R1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
+    //grippy.generale(driverPS4.cross().getAsBoolean(), driverPS4.square().getAsBoolean(),0.1);
+    gripperRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.share().getAsBoolean(),0.1);
+    modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),0.1);
+    ascending.generale(driverPS4.povDown().getAsBoolean(), driverPS4.povUp().getAsBoolean(),0.5);
+
+    driverPS4.cross().whileTrue(new cmdTurretTurn());
   }  
   public String angle()
   {
-    return ""+turetTurner.getAngle();
+    return ""+turetTurn.getAngle();
   }
    /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

@@ -11,16 +11,16 @@ public class general
     {
         MotorA = new SparkMax(motorAID,MotorType.kBrushless);
     }
-    public void general(boolean Left,boolean Right)
+    public void generale(boolean Left,boolean Right,double speed)
     {
         if(Left)
         {
-            MotorA.set(0.1);
+            MotorA.set(speed);
             
         }
-        else if(Right){
-            MotorA.set(-0.1);
-            
+        else if(Right)
+        {
+            MotorA.set(-1*speed);
         }
 
         else 

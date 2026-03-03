@@ -12,16 +12,16 @@ public class turetShoot
         MotorA = new SparkMax(motorAID,MotorType.kBrushless);
         MotorB = new SparkMax(motorBID,MotorType.kBrushless);
     }
-    public void turetShoot(boolean Left,boolean Right)
+    public void turetShooty(boolean Left,boolean Right,double speed)
     {
         if(Left)
         {
-            MotorA.set(0.1);
-            MotorB.set(-0.1);
+            MotorA.set(speed);
+            MotorB.set(-1*speed);
         }
         else if(Right){
-            MotorA.set(-0.1);
-            MotorB.set(0.1);
+            MotorA.set(-1*speed);
+            MotorB.set(speed);
         }
 
         else 

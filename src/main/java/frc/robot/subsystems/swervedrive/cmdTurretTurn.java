@@ -1,36 +1,44 @@
 package frc.robot.subsystems.swervedrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
+
 
 public class cmdTurretTurn extends Command 
 {
-    protected double theta;
-    protected double speed;
-    protected double errorbound;
-    public cmdTurretTurn(double theta,double errorbound)
-    {
-        this.theta = theta;
-        this.speed = speed;
-        this.errorbound = errorbound;
-        addRequirements(RobotContainer.turetTurner);
+  //private final turetTurn turret;
+  private final double kP = 0.0003; //this is changeable based on how fast turrent moves
+
+  public cmdTurretTurn(/*turetTurn turret*/)
+  {
+    //this.turret = turret;
+    //addRequirements(RobotContainer.turetTurner);
+  }
+
+  @Override
+  public void execute()
+  {
+    if (!LimelightHelpers.getTV("limelight")) {
+        RobotContainer.turetTurner.setSpeed(0);
+        return;
     }
 
-    @Override
-    public void execute() 
-    {
-        RobotContainer.turetTurner.setAngle(speed,theta,errorbound);
-    }
+    double tx = LimelightHelpers.getTX("limelight");
+    double output = tx * kP; //invert it if it goes the wrong direction
 
-    @Override
-    public void initialize() 
-    {
-        RobotContainer.turetTurner.setAngle(speed,theta,errorbound);
-    }
+    RobotContainer.turetTurner.setSpeed(output);
+  }
 
-    @Override
-    public boolean isFinished() 
-    {
-        return !(theta - 0.005 > turetTurn.getAngle()|| theta + 0.005 < turetTurn.getAngle());
-    }
+  @Override
+  public boolean isFinished()
+  {
+    return false;
+  } 
+
+  @Override
+  public void end(boolean interrupted)
+  {
+    RobotContainer.turetTurner.setSpeed(0);
+  }
 }
