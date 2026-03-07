@@ -46,13 +46,13 @@ public class turetTurn extends SubsystemBase
             theta=RIGHT_LIMIT;
             if (theta - errorbound > getAngle()) 
             {
-            MotorA.set(speed);
+                MotorA.set(speed);
             }  
-            if (theta + errorbound < getAngle()) 
+            else if (theta + errorbound < getAngle()) 
             {
                 MotorA.set(speed* -1);
             } 
-            if(!(theta - errorbound > getAngle() || theta + errorbound < getAngle()))
+            else if(!(theta - errorbound > getAngle() || theta + errorbound < getAngle()))
             {
                 MotorA.set(0);
             }
@@ -78,7 +78,6 @@ public class turetTurn extends SubsystemBase
     public static void zeroEncoder()
     {
         MotorA.getEncoder().setPosition(0);
-
     }
     public static double getAngle()
     {

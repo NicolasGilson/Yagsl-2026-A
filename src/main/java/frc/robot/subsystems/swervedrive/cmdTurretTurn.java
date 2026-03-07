@@ -1,18 +1,23 @@
 package frc.robot.subsystems.swervedrive;
 
 import edu.wpi.first.wpilibj2.command.Command;
+
+
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.LimelightHelpers;
 import frc.robot.RobotContainer;
 
 
+
 public class cmdTurretTurn extends Command 
 {
-  //private final turetTurn turret;
-  private final double kP = 0.0003; //this is changeable based on how fast turrent moves
+  private double RPM;
+  private final double kP = 0.005; //this is changeable based on how fast turrent moves
 
-  public cmdTurretTurn(/*turetTurn turret*/)
+  public cmdTurretTurn()
   {
-    //this.turret = turret;
+    this.RPM= -4.566552639007568;
+
     //addRequirements(RobotContainer.turetTurner);
   }
 
@@ -24,10 +29,24 @@ public class cmdTurretTurn extends Command
         return;
     }
 
+    /* Auto-aiming */
     double tx = LimelightHelpers.getTX("limelight");
     double output = tx * kP; //invert it if it goes the wrong direction
-
     RobotContainer.turetTurner.setSpeed(output);
+
+    /* NEW - Distance Calculation */
+    double ty = LimelightHelpers.getTY("limelight"); //a2
+    double limelightMountingAngleDegrees = 30.0; //a1
+    
+    double limelightLensHeight = 20.0; //h1 (in inches)
+    double goalHeight = 44.25; //h2
+
+    double angleToGoalDegrees = limelightMountingAngleDegrees + ty;
+    double angleToGoalRadians = angleToGoalDegrees * (3.14159 / 180.0);
+
+    double distance = (goalHeight - limelightLensHeight) / Math.tan(angleToGoalRadians);
+    //SmartDashboard.putNumber("Limelight Distance", distance);
+    RobotContainer.turetShoot.projMotion(this.RPM, distance/2);
   }
 
   @Override

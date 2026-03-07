@@ -1,6 +1,6 @@
 {
   "robotWidth": 0.851,
-  "robotLength": 0.9017,
+  "robotLength": 0.902,
   "holonomicMode": true,
   "pathFolders": [
     "Left"
@@ -14,13 +14,13 @@
   "robotMass": 54.4,
   "robotMOI": 6.883,
   "robotTrackwidth": 0.546,
-  "driveWheelRadius": 0.0508,
+  "driveWheelRadius": 0.051,
   "driveGearing": 6.75,
   "maxDriveSpeed": 4.572,
   "driveMotorType": "NEO",
-  "driveCurrentLimit": 49.0,
+  "driveCurrentLimit": 40.0,
   "wheelCOF": 1.2,
-  "flModuleX": 0.2921,
+  "flModuleX": 0.292,
   "flModuleY": 0.2667,
   "frModuleX": 0.2921,
   "frModuleY": -0.2667,
@@ -30,5 +30,8 @@
   "brModuleY": -0.2667,
   "bumperOffsetX": 0.0,
   "bumperOffsetY": 0.0,
-  "robotFeatures": []
+  "robotFeatures": [
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.0},\"size\":{\"width\":0.2,\"length\":0.2},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}",
+    "{\"name\":\"Rectangle\",\"type\":\"rounded_rect\",\"data\":{\"center\":{\"x\":0.0,\"y\":0.0},\"size\":{\"width\":0.2,\"length\":0.2},\"borderRadius\":0.05,\"strokeWidth\":0.02,\"filled\":false}}"
+  ]
 }

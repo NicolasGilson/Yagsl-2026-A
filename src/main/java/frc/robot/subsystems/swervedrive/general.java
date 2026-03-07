@@ -28,4 +28,9 @@ public class general
             MotorA.set(0);
         }
     }
+
+    public double getRPM()
+    {
+        return MotorA.getEncoder().getVelocity();
+    }
 }

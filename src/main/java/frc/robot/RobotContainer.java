@@ -32,8 +32,8 @@ import swervelib.SwerveInputStream;
 
 import frc.robot.subsystems.swervedrive.turetShoot;
 import frc.robot.subsystems.swervedrive.turetTurn;//14
-//10 griper up/down
-//9 gripper grab
+//10 lifeWeaver rotate up/down
+//9 lifeWeaver grab
 //15 ascending
 //11 modelT
 /**
@@ -43,10 +43,10 @@ import frc.robot.subsystems.swervedrive.turetTurn;//14
  */
 public class RobotContainer
 {
-  private turetShoot turetShoot = new turetShoot(12,13);
-  private general gripperRotate = new general(10);
-  private general grippy = new general(9);
-  private general ascending = new general(15);
+  public static turetShoot turetShoot = new turetShoot(12,13,15);
+  private general lifeWeaverRotate = new general(10);
+  private general lifeWeaver = new general(9);
+  //private general ascending = new general(15);
   private general modelT = new general(11);
   public static turetTurn turetTurner = new turetTurn();
   // Replace with CommandPS4Controller or CommandJoystick if needed
@@ -62,8 +62,8 @@ public class RobotContainer
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverPS4.getLeftY() * -1,
-                                                                () -> driverPS4.getLeftX() * -1)
+                                                                () -> driverPS4.getLeftY() * 1,
+                                                                () -> driverPS4.getLeftX() * 1)
                                                             .withControllerRotationAxis(driverPS4::getRightX)
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -128,6 +128,8 @@ public class RobotContainer
 
     //Set the default auto (do nothing) 
     autoChooser.setDefaultOption("Do Nothing", Commands.none());
+
+    autoChooser.addOption("TEST",AutoBuilder.buildAuto("baller"));
 
     //Add a simple auto option to have the robot drive forward for 1 second then stop
     autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
@@ -210,19 +212,17 @@ public class RobotContainer
 
   public void PS4buttons()
   {
-
-    turetShoot.turetShooty(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean(),0.5);
-    turetTurner.TuretTurner(driverPS4.L1().getAsBoolean(), driverPS4.R1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
-    //grippy.generale(driverPS4.cross().getAsBoolean(), driverPS4.square().getAsBoolean(),0.1);
-    gripperRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.share().getAsBoolean(),0.1);
-    modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),0.1);
-    ascending.generale(driverPS4.povDown().getAsBoolean(), driverPS4.povUp().getAsBoolean(),0.5);
-
+    turetShoot.turetShooty(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean(),driverPS4.povUp().getAsBoolean());
+    turetTurner.TuretTurner(driverPS4.R1().getAsBoolean(), driverPS4.L1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
+    lifeWeaver.generale(driverPS4.touchpad().getAsBoolean(), driverPS4.square().getAsBoolean(),1);
+    lifeWeaverRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.share().getAsBoolean(),0.1);
+    modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),0.15);
+    //ascending.generale(driverPS4.povDown().getAsBoolean(), driverPS4.povUp().getAsBoolean(),1);
     driverPS4.cross().whileTrue(new cmdTurretTurn());
   }  
   public String angle()
   {
-    return ""+turetTurn.getAngle();
+    return ""+turetShoot.getSpeed();
   }
    /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
