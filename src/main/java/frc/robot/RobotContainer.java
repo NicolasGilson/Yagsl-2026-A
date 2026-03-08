@@ -24,6 +24,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
+import frc.robot.subsystems.swervedrive.cmdLifeweaverRotate;
 import frc.robot.subsystems.swervedrive.cmdTurretTurn;
 import frc.robot.subsystems.swervedrive.general;
 
@@ -44,7 +45,7 @@ import frc.robot.subsystems.swervedrive.turetTurn;//14
 public class RobotContainer
 {
   public static turetShoot turetShoot = new turetShoot(12,13,15);
-  private general lifeWeaverRotate = new general(10);
+  public static general lifeWeaverRotate = new general(10);
   private general lifeWeaver = new general(9);
   //private general ascending = new general(15);
   private general modelT = new general(11);
@@ -61,6 +62,9 @@ public class RobotContainer
   /**
    * Converts driver input into a field-relative ChassisSpeeds that is controlled by angular velocity.
    */
+  //red negative
+  //blue postive
+
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> driverPS4.getLeftY() * 1,
                                                                 () -> driverPS4.getLeftX() * 1)
@@ -79,8 +83,10 @@ public class RobotContainer
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
    */
+
+   //TODO Changed
   SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-                                                             .allianceRelativeControl(false);
+                                                             .allianceRelativeControl(true);
 
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                         () -> -driverPS4.getLeftY(),
@@ -133,6 +139,7 @@ public class RobotContainer
 
     //Add a simple auto option to have the robot drive forward for 1 second then stop
     autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
+    autoChooser.addOption("Lifewearver", new cmdLifeweaverRotate());
 
     //Put the autoChooser on the SmartDashboard
     SmartDashboard.putData("Auto Chooser", autoChooser);
@@ -215,8 +222,9 @@ public class RobotContainer
     turetShoot.turetShooty(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean(),driverPS4.povUp().getAsBoolean());
     turetTurner.TuretTurner(driverPS4.R1().getAsBoolean(), driverPS4.L1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
     lifeWeaver.generale(driverPS4.touchpad().getAsBoolean(), driverPS4.square().getAsBoolean(),1);
-    lifeWeaverRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.share().getAsBoolean(),0.1);
-    modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),0.15);
+    lifeWeaverRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.share().getAsBoolean(),0.3);
+    //TODO update speed
+    modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),1);
     //ascending.generale(driverPS4.povDown().getAsBoolean(), driverPS4.povUp().getAsBoolean(),1);
     driverPS4.cross().whileTrue(new cmdTurretTurn());
   }  

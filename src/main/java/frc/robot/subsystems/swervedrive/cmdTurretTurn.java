@@ -16,7 +16,7 @@ public class cmdTurretTurn extends Command
 
   public cmdTurretTurn()
   {
-    this.RPM= -4.566552639007568;
+    this.RPM= 4.566552639007568;
 
     //addRequirements(RobotContainer.turetTurner);
   }
@@ -46,7 +46,7 @@ public class cmdTurretTurn extends Command
 
     double distance = (goalHeight - limelightLensHeight) / Math.tan(angleToGoalRadians);
     //SmartDashboard.putNumber("Limelight Distance", distance);
-    RobotContainer.turetShoot.projMotion(this.RPM, distance/2);
+    RobotContainer.turetShoot.projMotion(this.RPM, (distance)+70);
   }
 
   @Override

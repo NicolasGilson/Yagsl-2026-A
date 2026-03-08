@@ -1869,7 +1869,7 @@ public class LimelightHelpers {
 
     /**
      * Triggers a rewind capture with the specified duration.
-     * Maximum duration is 165 seconds. Rate-limited on the Limelight.
+     * Maxm duration is 165 seconds. Rate-limited on the Limelight.
      * @param limelightName Name of the Limelight camera
      * @param durationSeconds Duration of rewind capture in seconds (max 165)
      */

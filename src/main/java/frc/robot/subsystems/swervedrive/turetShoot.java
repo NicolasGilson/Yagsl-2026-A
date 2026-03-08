@@ -9,7 +9,7 @@ public class turetShoot extends SubsystemBase
     private double speed=0.5;
     private final SparkMax MotorB;
     private final SparkMax MotorC;
-    private static final double k1 = 0.55;
+    private static final double k1 = 0.60;
     private static final double k2 = 1.0;
 
     public turetShoot(int motorAID,int motorBID,int motorCID)
@@ -41,7 +41,7 @@ public class turetShoot extends SubsystemBase
         }
         else if(MAX_PWR)
         {
-            this.speed=0.5;
+            this.speed=0.57;
         }
         else 
         {
@@ -57,7 +57,6 @@ public class turetShoot extends SubsystemBase
 //75
     public void projMotion(double RPM,double dist)
     {
-        speed = ((dist*0.0254*5.6712818)-1.2827)<0? 0 :((60/(2*3.14159*(2)*0.0254))*(k1*(Math.sqrt((9.81*dist*0.0254*dist*0.0254)/(2*0.1736482*((dist*0.0254*5.6712818)-1.2827))))-k2*(RPM*((2*3.14159*(2)*0.0254)/60))))/580.71416015625; //RPM ->rad/s* asc const
+        speed = 1.659308*((60/(2*3.14159*(2)*0.051*k1))*((Math.sqrt(((9.81*dist*0.0254*dist*0.0254)/0.060373792)*(1/((dist*0.0254*5.6712818)-5.08))))+k2*(RPM*(2*3.14159*(0.029)/60))))/5937.1416015625; //RPM ->rad/s* asc const
     }
 }
-
