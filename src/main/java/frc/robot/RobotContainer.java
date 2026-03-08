@@ -20,6 +20,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
@@ -51,7 +52,7 @@ public class RobotContainer
   private general modelT = new general(11);
   public static turetTurn turetTurner = new turetTurn();
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandPS4Controller driverPS4 = new CommandPS4Controller(0);
+  final         CommandPS5Controller driverPS4 = new CommandPS5Controller(0);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
@@ -222,7 +223,7 @@ public class RobotContainer
     turetShoot.turetShooty(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean(),driverPS4.povUp().getAsBoolean());
     turetTurner.TuretTurner(driverPS4.R1().getAsBoolean(), driverPS4.L1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
     lifeWeaver.generale(driverPS4.touchpad().getAsBoolean(), driverPS4.square().getAsBoolean(),1);
-    lifeWeaverRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.share().getAsBoolean(),0.3);
+    lifeWeaverRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.create().getAsBoolean(),0.3);
     //TODO update speed
     modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),1);
     //ascending.generale(driverPS4.povDown().getAsBoolean(), driverPS4.povUp().getAsBoolean(),1);

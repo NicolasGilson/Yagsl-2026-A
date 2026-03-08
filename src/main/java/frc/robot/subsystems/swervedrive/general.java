@@ -5,7 +5,7 @@ import com.revrobotics.spark.SparkMax;
 public class general 
 {
     private final SparkMax MotorA;
-    private double speed=0.5;
+    private double speeder=0.5;
    
 
     public general(int motorAID)
@@ -18,15 +18,15 @@ public class general
     }
     public void generale(boolean Left,boolean Right,double speed)
     {
-        this.speed=speed;
+        this.speeder=speed;
         if(Left)
         {
-            MotorA.set(speed);
+            MotorA.set(speeder);
             
         }
         else if(Right)
         {
-            MotorA.set(-1*speed);
+            MotorA.set(-1*speeder);
         }
 
         else 
