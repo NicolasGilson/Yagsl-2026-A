@@ -70,7 +70,7 @@ public class RobotContainer
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                 () -> winton.getLeftY() * 1,
                                                                 () -> winton.getLeftX() * 1)
-                                                            .withControllerRotationAxis(() -> -winton.getRightX())
+                                                            .withControllerRotationAxis(() -> winton.getRightX())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -227,7 +227,8 @@ public class RobotContainer
     //TODO update speed
     modelT.generale(mag.PS().getAsBoolean(), mag.circle().getAsBoolean(),1);
     //ascending.generale(winton.povDown().getAsBoolean(), winton.povUp().getAsBoolean(),1);
-    mag.cross().whileTrue(new cmdTurretTurn());
+    mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26}));
+    mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25}));
   }  
   public String angle()
   {
