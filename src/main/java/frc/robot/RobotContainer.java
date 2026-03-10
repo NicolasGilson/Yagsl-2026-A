@@ -52,7 +52,8 @@ public class RobotContainer
   private general modelT = new general(11);
   public static turetTurn turetTurner = new turetTurn();
   // Replace with CommandPS4Controller or CommandJoystick if needed
-  final         CommandPS5Controller driverPS4 = new CommandPS5Controller(0);
+  final         CommandPS5Controller winton = new CommandPS5Controller(0);
+   final         CommandPS5Controller mag = new CommandPS5Controller(1);
   // The robot's subsystems and commands are defined here...
   private final SwerveSubsystem drivebase  = new SwerveSubsystem(new File(Filesystem.getDeployDirectory(),
                                                                                 "swerve/neo"));
@@ -67,9 +68,9 @@ public class RobotContainer
   //blue postive
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> driverPS4.getLeftY() * 1,
-                                                                () -> driverPS4.getLeftX() * 1)
-                                                            .withControllerRotationAxis(driverPS4::getRightX)
+                                                                () -> winton.getLeftY() * 1,
+                                                                () -> winton.getLeftX() * 1)
+                                                            .withControllerRotationAxis(() -> -winton.getRightX())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
                                                             .allianceRelativeControl(true);
@@ -77,8 +78,8 @@ public class RobotContainer
   /**
    * Clone's the angular velocity input stream and converts it to a fieldRelative input stream.
    */
-  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(driverPS4::getRightX,
-                                                                                             driverPS4::getRightY)
+  SwerveInputStream driveDirectAngle = driveAngularVelocity.copy().withControllerHeadingAxis(winton::getRightX,
+                                                                                             winton::getRightY)
                                                            .headingWhile(true);
 
   /**
@@ -90,10 +91,9 @@ public class RobotContainer
                                                              .allianceRelativeControl(true);
 
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                        () -> -driverPS4.getLeftY(),
-                                                                        () -> -driverPS4.getLeftX())
-                                                                    .withControllerRotationAxis(() -> driverPS4.getRawAxis(
-                                                                        2))
+                                                                        () -> -winton.getLeftY(),
+                                                                        () -> -winton.getLeftX())
+                                                                    .withControllerRotationAxis(() -> -winton.getRightX())
                                                                     .deadband(OperatorConstants.DEADBAND)
                                                                     .scaleTranslation(0.8)
                                                                     .allianceRelativeControl(true);
@@ -101,14 +101,14 @@ public class RobotContainer
   SwerveInputStream driveDirectAngleKeyboard     = driveAngularVelocityKeyboard.copy()
                                                                                .withControllerHeadingAxis(() ->
                                                                                                               Math.sin(
-                                                                                                                  driverPS4.getRawAxis(
+                                                                                                                  winton.getRawAxis(
                                                                                                                       2) *
                                                                                                                   Math.PI) *
                                                                                                               (Math.PI *
                                                                                                                2),
                                                                                                           () ->
                                                                                                               Math.cos(
-                                                                                                                  driverPS4.getRawAxis(
+                                                                                                                  winton.getRawAxis(
                                                                                                                       2) *
                                                                                                                   Math.PI) *
                                                                                                               (Math.PI *
@@ -187,12 +187,12 @@ public class RobotContainer
                                                                      new Constraints(Units.degreesToRadians(360),
                                                                                      Units.degreesToRadians(180))
                                            ));
-      driverPS4.options().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
-      driverPS4.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
-      driverPS4.button(2).whileTrue(Commands.runEnd(() -> driveDirectAngleKeyboard.driveToPoseEnabled(true),
+      winton.options().onTrue(Commands.runOnce(() -> drivebase.resetOdometry(new Pose2d(3, 3, new Rotation2d()))));
+      winton.button(1).whileTrue(drivebase.sysIdDriveMotorCommand());
+      winton.button(2).whileTrue(Commands.runEnd(() -> driveDirectAngleKeyboard.driveToPoseEnabled(true),
                                                      () -> driveDirectAngleKeyboard.driveToPoseEnabled(false)));
 
-//      driverPS4.b().whileTrue(
+//      winton.b().whileTrue(
 //          drivebase.driveToPose(
 //              new Pose2d(new Translation2d(4, 4), Rotation2d.fromDegrees(0)))
 //                              );
@@ -202,32 +202,32 @@ public class RobotContainer
     {
       drivebase.setDefaultCommand(driveFieldOrientedAnglularVelocity); // Overrides drive command above!
 
-      driverPS4.square().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverPS4.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverPS4.share().whileTrue(drivebase.centerModulesCommand());
-      driverPS4.L1().onTrue(Commands.none());
-      driverPS4.R1().onTrue(Commands.none());
+      winton.square().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      winton.options().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      winton.share().whileTrue(drivebase.centerModulesCommand());
+      winton.L1().onTrue(Commands.none());
+      winton.R1().onTrue(Commands.none());
     } else
     {
-      driverPS4.cross().onTrue((Commands.runOnce(drivebase::zeroGyro)));
-      driverPS4.options().whileTrue(Commands.none());
-      driverPS4.share().whileTrue(Commands.none());
-      driverPS4.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
-      driverPS4.R1().onTrue(Commands.none());
+      winton.cross().onTrue((Commands.runOnce(drivebase::zeroGyro)));
+      winton.options().whileTrue(Commands.none());
+      winton.share().whileTrue(Commands.none());
+      winton.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
+      winton.R1().onTrue(Commands.none());
     */}
 
   }
 
   public void PS4buttons()
   {
-    turetShoot.turetShooty(driverPS4.L2().getAsBoolean(), driverPS4.R2().getAsBoolean(),driverPS4.povUp().getAsBoolean());
-    turetTurner.TuretTurner(driverPS4.R1().getAsBoolean(), driverPS4.L1().getAsBoolean(),driverPS4.triangle().getAsBoolean());
-    lifeWeaver.generale(driverPS4.touchpad().getAsBoolean(), driverPS4.square().getAsBoolean(),1);
-    lifeWeaverRotate.generale(driverPS4.options().getAsBoolean(), driverPS4.create().getAsBoolean(),0.3);
+    turetShoot.turetShooty(mag.L2().getAsBoolean(), mag.R2().getAsBoolean(),mag.povUp().getAsBoolean());
+    turetTurner.TuretTurner(mag.R1().getAsBoolean(), mag.L1().getAsBoolean(),mag.triangle().getAsBoolean());
+    lifeWeaver.generale(mag.touchpad().getAsBoolean(), mag.square().getAsBoolean(),1);
+    lifeWeaverRotate.generale(mag.options().getAsBoolean(), mag.create().getAsBoolean(),0.3);
     //TODO update speed
-    modelT.generale(driverPS4.PS().getAsBoolean(), driverPS4.circle().getAsBoolean(),1);
-    //ascending.generale(driverPS4.povDown().getAsBoolean(), driverPS4.povUp().getAsBoolean(),1);
-    driverPS4.cross().whileTrue(new cmdTurretTurn());
+    modelT.generale(mag.PS().getAsBoolean(), mag.circle().getAsBoolean(),1);
+    //ascending.generale(winton.povDown().getAsBoolean(), winton.povUp().getAsBoolean(),1);
+    mag.cross().whileTrue(new cmdTurretTurn());
   }  
   public String angle()
   {

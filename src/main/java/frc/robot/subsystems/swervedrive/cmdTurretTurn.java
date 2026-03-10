@@ -17,7 +17,7 @@ public class cmdTurretTurn extends Command
   {
     this.RPM= 4.566552639007568;
 
-    //addRequirements(RobotContainer.turetTurner);
+    addRequirements(RobotContainer.turetTurner,RobotContainer.turetShoot);
   }
 
   @Override
