@@ -4,8 +4,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 
 
 import frc.robot.LimelightHelpers;
+import frc.robot.Robot;
 import frc.robot.RobotContainer;
-
 
 
 public class cmdTurretTurn extends Command 
@@ -16,25 +16,35 @@ public class cmdTurretTurn extends Command
   public cmdTurretTurn()
   {
     this.RPM= 4.566552639007568;
+    addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
+  }
 
-    addRequirements(RobotContainer.turetTurner,RobotContainer.turetShoot);
+  @Override
+  public void initialize() {
+    //maybe turn this into only Left side limelight and make another class for right side ones?
+    LimelightHelpers.SetFiducialIDFiltersOverride("limelight", new int[]{9, 25}); //left side
+    //LimelightHelpers.SetFiducialIDFiltersOverride("limelight", new int[]{10, 26}); //right side
   }
 
   @Override
   public void execute()
   {
-    if (!LimelightHelpers.getTV("limelight")) {
+    LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults("limelight");
+    // go back to original getTX and getTY if this doesn't work. 
+
+    if (!results.valid) {
         RobotContainer.turetTurner.setSpeed(0);
         return;
     }
 
+    double tx = results.tx;
+    double ty = results.ty; //a2
+
     /* Auto-aiming */
-    double tx = LimelightHelpers.getTX("limelight");
     double output = tx * kP; //invert it if it goes the wrong direction
     RobotContainer.turetTurner.setSpeed(output);
 
     /* NEW - Distance Calculation */
-    double ty = LimelightHelpers.getTY("limelight"); //a2
     double limelightMountingAngleDegrees = 30.0; //a1
     
     double limelightLensHeight = 20.0; //h1 (in inches)
@@ -52,7 +62,7 @@ public class cmdTurretTurn extends Command
   public boolean isFinished()
   {
     return false;
-  } 
+  }
 
   @Override
   public void end(boolean interrupted)
