@@ -12,21 +12,25 @@ public class cmdTurretTurn extends Command
 {
   private double RPM;
   private final double kP = 0.005; //this is changeable based on how fast turrent moves
-  private static int[] tags;
+  private int[] tags;
 
   public cmdTurretTurn(int[] april)
   {
     this.RPM= 4.566552639007568;
     this.tags=april;
+    
+    LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //maybe this should go under initialize()
+
     addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
   }
 
   @Override
   public void initialize() {
-    //maybe turn this into only Left side limelight and make another class for right side ones?
- //left side
+    //LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //right side
+    
     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight", new int[]{10, 26}); //right side
   }
+
 
   @Override
   public void execute()
@@ -38,7 +42,7 @@ public class cmdTurretTurn extends Command
         RobotContainer.turetTurner.setSpeed(0);
         return;
     }
-    LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags);
+    // LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags);
     //9, 10: red alliance
     //25, 26: blue alliance
 

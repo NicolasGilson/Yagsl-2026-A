@@ -215,7 +215,10 @@ public class RobotContainer
       winton.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       winton.R1().onTrue(Commands.none());
     */}
-
+    mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26})); //put it under keybindings. front-right side
+    mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25})); //front-left side
+    mag.povUp().whileTrue(new cmdTurretTurn(new int[] {11,27})); //sidekick from the right **added
+    mag.povDown().whileTrue(new cmdTurretTurn(new int[] {8,24})); //sidekick from the left **added
   }
 
   public void PS4buttons()
@@ -227,8 +230,8 @@ public class RobotContainer
     //TODO update speed
     modelT.generale(mag.PS().getAsBoolean(), mag.circle().getAsBoolean(),1);
     //ascending.generale(winton.povDown().getAsBoolean(), winton.povUp().getAsBoolean(),1);
-    mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26}));
-    mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25}));
+    // mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26}));
+    // mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25}));
   }  
   public String angle()
   {
