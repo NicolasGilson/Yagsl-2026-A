@@ -18,7 +18,7 @@ public class cmdTurretTurn extends Command
   {
     this.RPM= 4.566552639007568;
     // this.tags=april;
-    addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
+    // addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
   }
 
   // @Override
@@ -30,8 +30,6 @@ public class cmdTurretTurn extends Command
   @Override
   public void execute()
   {
-    LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags);
-
     if (!LimelightHelpers.getTV("limelight")) {
         RobotContainer.turetTurner.setSpeed(0);
         return;

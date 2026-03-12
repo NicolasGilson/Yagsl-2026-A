@@ -215,6 +215,7 @@ public class RobotContainer
       winton.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       winton.R1().onTrue(Commands.none());
     */}
+    mag.cross().whileTrue(new cmdTurretTurn());
   }
 
   public void PS4buttons()
@@ -234,8 +235,6 @@ public class RobotContainer
     //ascending.generale(winton.povDown().getAsBoolean(), winton.povUp().getAsBoolean(),1);
     // mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26}));
     // mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25}));
-
-    mag.cross().whileTrue(new cmdTurretTurn());
   }  
   public String angle()
   {
