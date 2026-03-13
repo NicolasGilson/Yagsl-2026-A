@@ -144,7 +144,7 @@ public class Robot extends TimedRobot
   public void teleopPeriodic()
   {
     m_robotContainer.PS4buttons();
-    System.out.println(m_robotContainer.angle());
+    //System.out.println(m_robotContainer.angle());
   }
 
   @Override

@@ -14,14 +14,18 @@ public class cmdTurretTurn extends Command
   private final double kP = 0.005; //this is changeable based on how fast turrent moves
   private int[] tags;
 
-  public cmdTurretTurn(int[] april)
+  public cmdTurretTurn()
   {
     this.RPM= 4.566552639007568;
-    this.tags=april;
-    
-    addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
+    // this.tags=april;
+    // addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
   }
 
+  // @Override
+  // public void initialize() {
+  //   //LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //right side
+  //   //LimelightHelpers.SetFiducialIDFiltersOverride("limelight", new int[]{10, 26}); //right side
+  // }
   @Override
   public void initialize() {
     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //right side
@@ -33,10 +37,7 @@ public class cmdTurretTurn extends Command
   @Override
   public void execute()
   {
-    LimelightHelpers.LimelightResults results = LimelightHelpers.getLatestResults("limelight");
-    // go back to original getTX and getTY if this doesn't work. 
-
-    if (!results.valid) {
+    if (!LimelightHelpers.getTV("limelight")) {
         RobotContainer.turetTurner.setSpeed(0);
         return;
     }
@@ -44,8 +45,8 @@ public class cmdTurretTurn extends Command
     //9, 10: red alliance
     //25, 26: blue alliance
 
-    double tx = results.tx;
-    double ty = results.ty; //a2
+    double tx = LimelightHelpers.getTX("limelight");
+    double ty = LimelightHelpers.getTY("limelight"); //a2
 
     /* Auto-aiming */
     double output = tx * kP; //invert it if it goes the wrong direction
