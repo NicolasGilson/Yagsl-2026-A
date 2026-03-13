@@ -221,6 +221,13 @@ public class RobotContainer
 
   public void PS4buttons()
   {
+    turetShoot.turetShooty(mag.L2().getAsBoolean(), mag.R2().getAsBoolean(),mag.R3().getAsBoolean());
+    // mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26})); //put it under keybindings. front-right side
+    // mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25})); //front-left side
+    // mag.povUp().whileTrue(new cmdTurretTurn(new int[] {11,27})); //sidekick from the right **added
+    // mag.povDown().whileTrue(new cmdTurretTurn(new int[] {8,24})); //sidekick from the left **added
+    
+    
     turetShoot.turetShooty(mag.L2().getAsBoolean(), mag.R2().getAsBoolean(),mag.povUp().getAsBoolean());
     turetTurner.TuretTurner(mag.R1().getAsBoolean(), mag.L1().getAsBoolean(),mag.triangle().getAsBoolean());
     lifeWeaver.generale(mag.touchpad().getAsBoolean(), mag.square().getAsBoolean(),1);
