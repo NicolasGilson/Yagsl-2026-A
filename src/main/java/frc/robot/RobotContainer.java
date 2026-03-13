@@ -215,10 +215,8 @@ public class RobotContainer
       winton.L1().whileTrue(Commands.runOnce(drivebase::lock, drivebase).repeatedly());
       winton.R1().onTrue(Commands.none());
     */}
-    mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26})); //put it under keybindings. front-right side
-    mag.povLeft().whileTrue(new cmdTurretTurn(new int[] {9,25})); //front-left side
-    mag.povUp().whileTrue(new cmdTurretTurn(new int[] {11,27})); //sidekick from the right **added
-    mag.povDown().whileTrue(new cmdTurretTurn(new int[] {8,24})); //sidekick from the left **added
+    mag.cross().whileTrue(new cmdTurretTurn());
+    //mag.cross().whileTrue(new cmdTurretTurn(new int[] {8,9,10,11,24,25,26,27})); 
   }
 
   public void PS4buttons()
