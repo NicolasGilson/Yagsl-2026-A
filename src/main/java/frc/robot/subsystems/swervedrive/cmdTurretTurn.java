@@ -19,15 +19,13 @@ public class cmdTurretTurn extends Command
     this.RPM= 4.566552639007568;
     this.tags=april;
     
-    LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //maybe this should go under initialize()
-
     addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
   }
 
   @Override
   public void initialize() {
     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //right side
-    
+     LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags);    //maybe this should go under initialize()
     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight", new int[]{10, 26}); //right side
   }
 
