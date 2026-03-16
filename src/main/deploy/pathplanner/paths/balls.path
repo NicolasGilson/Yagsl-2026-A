@@ -4,24 +4,24 @@
     {
       "anchor": {
         "x": 3.555441624365482,
-        "y": 3.9659390862944166
+        "y": 3.966
       },
       "prevControl": null,
       "nextControl": {
         "x": 3.8092625418542863,
-        "y": 3.9755932241749306
+        "y": 3.975654137880514
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.045309644670051,
-        "y": 3.9659390862944166
+        "x": 2.625421319796955,
+        "y": 3.966
       },
       "prevControl": {
-        "x": 2.2984607426911374,
-        "y": 3.958191286183039
+        "x": 2.878572417818041,
+        "y": 3.9582521998886224
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,30 @@
   "rotationTargets": [],
   "constraintZones": [],
   "pointTowardsZones": [],
-  "eventMarkers": [],
+  "eventMarkers": [
+    {
+      "name": "aim",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "turnem"
+        }
+      }
+    },
+    {
+      "name": "slime",
+      "waypointRelativePos": 1.0,
+      "endWaypointRelativePos": null,
+      "command": {
+        "type": "named",
+        "data": {
+          "name": "shootem"
+        }
+      }
+    }
+  ],
   "globalConstraints": {
     "maxVelocity": 2.0,
     "maxAcceleration": 2.0,

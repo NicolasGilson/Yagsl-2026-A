@@ -25,8 +25,6 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.OperatorConstants;
 import frc.robot.subsystems.swervedrive.SwerveSubsystem;
-import frc.robot.subsystems.swervedrive.cmdLifeweaverRotate;
-import frc.robot.subsystems.swervedrive.cmdTurretTurn;
 import frc.robot.subsystems.swervedrive.general;
 
 import java.io.File;
@@ -34,6 +32,11 @@ import swervelib.SwerveInputStream;
 
 import frc.robot.subsystems.swervedrive.turetShoot;
 import frc.robot.subsystems.swervedrive.turetTurn;//14
+import frc.robot.subsystems.swervedrive.CMDs.cmdLifeweaver;
+import frc.robot.subsystems.swervedrive.CMDs.cmdLifeweaverRotate;
+import frc.robot.subsystems.swervedrive.CMDs.cmdModelT;
+import frc.robot.subsystems.swervedrive.CMDs.cmdTurretTurn;
+import frc.robot.subsystems.swervedrive.CMDs.cmdturretShot;
 //10 lifeWeaver rotate up/down
 //9 lifeWeaver grab
 //15 ascending
@@ -47,9 +50,9 @@ public class RobotContainer
 {
   public static turetShoot turetShoot = new turetShoot(12,13,15);
   public static general lifeWeaverRotate = new general(10);
-  private general lifeWeaver = new general(9);
+  public static general lifeWeaver = new general(9);
   //private general ascending = new general(15);
-  private general modelT = new general(11);
+  public static general modelT = new general(11);
   public static turetTurn turetTurner = new turetTurn();
   // Replace with CommandPS4Controller or CommandJoystick if needed
   final         CommandPS5Controller winton = new CommandPS5Controller(0);
@@ -129,6 +132,11 @@ public class RobotContainer
     
     //Create the NamedCommands that will be used in PathPlanner
     NamedCommands.registerCommand("test", Commands.print("I EXIST"));
+    NamedCommands.registerCommand("LifeweaverRotateem", new cmdLifeweaverRotate());
+    NamedCommands.registerCommand("Lifeweaverem", new cmdLifeweaver());
+    NamedCommands.registerCommand("ModelTem", new cmdModelT());
+    NamedCommands.registerCommand("shootem", new cmdturretShot());
+    NamedCommands.registerCommand("turnem", new cmdTurretTurn());
 
     //Have the autoChooser pull in all PathPlanner autos as options
     autoChooser = AutoBuilder.buildAutoChooser();

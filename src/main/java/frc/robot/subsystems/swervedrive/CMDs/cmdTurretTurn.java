@@ -1,10 +1,10 @@
-package frc.robot.subsystems.swervedrive;
+package frc.robot.subsystems.swervedrive.CMDs;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
 
 import frc.robot.LimelightHelpers;
-import frc.robot.Robot;
+//import frc.robot.Robot;
 import frc.robot.RobotContainer;
 
 
@@ -12,13 +12,13 @@ public class cmdTurretTurn extends Command
 {
   private double RPM;
   private final double kP = 0.005; //this is changeable based on how fast turrent moves
-  private int[] tags;
+  //private int[] tags;
 
   public cmdTurretTurn()
   {
     this.RPM= 4.566552639007568;
     // this.tags=april;
-    // addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
+    //addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
   }
 
   // @Override
@@ -29,7 +29,7 @@ public class cmdTurretTurn extends Command
   @Override
   public void initialize() {
     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags); //right side
-     LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags);    //maybe this should go under initialize()
+     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight",tags);    //maybe this should go under initialize()
     //LimelightHelpers.SetFiducialIDFiltersOverride("limelight", new int[]{10, 26}); //right side
   }
 
@@ -53,7 +53,7 @@ public class cmdTurretTurn extends Command
     RobotContainer.turetTurner.setSpeed(output);
 
     /* NEW - Distance Calculation */
-    double limelightMountingAngleDegrees = 30.0; //a1
+    double limelightMountingAngleDegrees = 15.0; //a1
     
     double limelightLensHeight = 20.0; //h1 (in inches)
     double goalHeight = 44.25; //h2

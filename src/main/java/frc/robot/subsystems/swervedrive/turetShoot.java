@@ -18,28 +18,28 @@ public class turetShoot extends SubsystemBase
         MotorB = new SparkMax(motorBID,MotorType.kBrushless);
         MotorC = new SparkMax(motorCID,MotorType.kBrushless);
     }
-    public void setSpeed(double speed) 
+    public void setSpeed(double reverse) 
     {
-        MotorA.set(speed);
-        MotorB.set(-speed);
+        MotorA.set(this.speed*reverse);
+        MotorB.set(-this.speed*reverse);
     }
     public void rpmSPEED(double Target, double dist)
     {
         //MotorA.set((projMotion(Target,dist))/(MAX_RPM));
     }
-    public void turetShooty(boolean Left,boolean Right,boolean MAX_PWR)
+    public void turetShooty(boolean Left,boolean Right,boolean PWR)
     {
         if(Left)
         {
-            setSpeed(speed);
+            setSpeed(1);
             MotorC.set(1);
         }
         else if(Right)
         {
-            setSpeed(-speed);
+            setSpeed(-1);
             MotorC.set(-1);
         }
-        else if(MAX_PWR)
+        else if(PWR)
         {
             this.speed=0.57;
         }
