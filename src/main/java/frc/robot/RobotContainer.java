@@ -71,8 +71,8 @@ public class RobotContainer
   //blue postive
 
   SwerveInputStream driveAngularVelocity = SwerveInputStream.of(drivebase.getSwerveDrive(),
-                                                                () -> winton.getLeftY() * 1,
-                                                                () -> winton.getLeftX() * 1)
+                                                                () -> winton.getLeftY() * -1,
+                                                                () -> winton.getLeftX() * -1)
                                                             .withControllerRotationAxis(() -> winton.getRightX())
                                                             .deadband(OperatorConstants.DEADBAND)
                                                             .scaleTranslation(0.8)
@@ -88,10 +88,8 @@ public class RobotContainer
   /**
    * Clone's the angular velocity input stream and converts it to a robotRelative input stream.
    */
-
-   //TODO Changed
   SwerveInputStream driveRobotOriented = driveAngularVelocity.copy().robotRelative(true)
-                                                             .allianceRelativeControl(true);
+                                                             .allianceRelativeControl(false);
 
   SwerveInputStream driveAngularVelocityKeyboard = SwerveInputStream.of(drivebase.getSwerveDrive(),
                                                                         () -> -winton.getLeftY(),
@@ -142,9 +140,9 @@ public class RobotContainer
     autoChooser = AutoBuilder.buildAutoChooser();
 
     //Set the default auto (do nothing) 
-    autoChooser.setDefaultOption("Do Nothing", Commands.none());
+    autoChooser.addOption("Do Nothing", Commands.none());
 
-    autoChooser.addOption("TEST",AutoBuilder.buildAuto("baller"));
+    autoChooser.setDefaultOption("TEST",AutoBuilder.buildAuto("baller"));
 
     //Add a simple auto option to have the robot drive forward for 1 second then stop
     autoChooser.addOption("Drive Forward", drivebase.driveForward().withTimeout(1));
@@ -240,7 +238,6 @@ public class RobotContainer
     turetTurner.TuretTurner(mag.R1().getAsBoolean(), mag.L1().getAsBoolean(),mag.triangle().getAsBoolean());
     lifeWeaver.generale(mag.touchpad().getAsBoolean(), mag.square().getAsBoolean(),1);
     lifeWeaverRotate.generale(mag.options().getAsBoolean(), mag.create().getAsBoolean(),0.3);
-    //TODO update speed
     modelT.generale(mag.PS().getAsBoolean(), mag.circle().getAsBoolean(),1);
     //ascending.generale(winton.povDown().getAsBoolean(), winton.povUp().getAsBoolean(),1);
     // mag.povRight().whileTrue(new cmdTurretTurn(new int[] {10,26}));
