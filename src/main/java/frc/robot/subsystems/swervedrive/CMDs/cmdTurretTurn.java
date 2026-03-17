@@ -18,7 +18,7 @@ public class cmdTurretTurn extends Command
   {
     this.RPM= 4.566552639007568;
     // this.tags=april;
-    //addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
+    addRequirements(RobotContainer.turetTurner, RobotContainer.turetShoot);
   }
 
   // @Override
@@ -53,9 +53,9 @@ public class cmdTurretTurn extends Command
     RobotContainer.turetTurner.setSpeed(output);
 
     /* NEW - Distance Calculation */
-    double limelightMountingAngleDegrees = 15.0; //a1
+    double limelightMountingAngleDegrees = 19.0; //a1
     
-    double limelightLensHeight = 20.0; //h1 (in inches)
+    double limelightLensHeight = 30.0; //h1 (in inches)
     double goalHeight = 44.25; //h2
 
     double angleToGoalDegrees = limelightMountingAngleDegrees + ty;
@@ -63,7 +63,7 @@ public class cmdTurretTurn extends Command
 
     double distance = (goalHeight - limelightLensHeight) / Math.tan(angleToGoalRadians);
     //SmartDashboard.putNumber("Limelight Distance", distance);
-    RobotContainer.turetShoot.projMotion(this.RPM, (distance)+70);
+    RobotContainer.turetShoot.projMotion(this.RPM, (distance)+100);
   }
 
   @Override

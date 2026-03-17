@@ -57,6 +57,6 @@ public class turetShoot extends SubsystemBase
 //75
     public void projMotion(double RPM,double dist)
     {
-        speed = 1.699308*((60/(2*3.14159*(2)*0.051*k1))*((Math.sqrt(((9.81*dist*0.0254*dist*0.0254)/0.060373792)*(1/((dist*0.0254*5.6712818)-5.08))))+k2*(RPM*(2*3.14159*(0.029)/60))))/5937.1416015625; //RPM ->rad/s* asc const
+        speed = 2.059308*((60/(2*3.14159*(2)*0.051*k1))*((Math.sqrt(((9.81*dist*0.0254*dist*0.0254)/0.060373792)*(1/((dist*0.0254*5.6712818)-5.08))))+k2*(RPM*(2*3.14159*(0.029)/60))))/5837.1416015625; //RPM ->rad/s* asc const
     }
 }
